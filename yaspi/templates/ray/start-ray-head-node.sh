@@ -7,10 +7,12 @@
 echo "setting up environment for ray head node"
 {{env_setup}}
 
-echo "starting ray head node"
 # Launch the head node
-ray start --head --redis-port=6379 --include-webui {{ray_args}}
-echo "started ray head node"
+cmd="singularity exec \
+    --nv $SIF_PATH $SING_EXTRA_ARGS \
+    ray start --head --redis-port=6379 --include-webui {{ray_args}}"
+echo "running cmd: ${cmd}"
+eval $cmd
 
 # Prevent the slurm scheduler from releasing the machine
 sleep infinity

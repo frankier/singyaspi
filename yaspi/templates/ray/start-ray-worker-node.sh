@@ -12,7 +12,9 @@ worker_id=$2
 {{env_setup}}
 
 # Launch the worker node
-cmd="ray start --redis-address=${redis_address} {{ray_args}}"
+cmd="singularity exec \
+    --nv $SIF_PATH $SING_EXTRA_ARGS \
+    ray start --redis-address=${redis_address} {{ray_args}}"
 echo "running cmd: ${cmd}"
 eval $cmd
 

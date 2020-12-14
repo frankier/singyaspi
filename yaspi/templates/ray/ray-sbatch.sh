@@ -61,7 +61,7 @@ fi
 if [ $worker_id -eq 0 ]; then
     {{env_setup}}
     {{ssh_forward}}
-    cmd="{{cmd}}"
+    cmd="singularity exec --nv $SIF_PATH $SING_EXTRA_ARGS {{cmd}}"
     echo "Launching ${cmd} on head node in ${approx_ray_init_time_in_secs} secs"
     sleep ${approx_ray_init_time_in_secs}
     {{cmd}} --ray_address $ip_head
